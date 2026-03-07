@@ -104,6 +104,16 @@ function getBaseName(name) {
 function getMimeType(key) {
   const ext = getExtension(key).toLowerCase()
   /** @type {Record<string, string>} */
+  //   export const IMAGE_RE = /\.(jpg|jpeg|png|gif|webp|svg|ico|bmp|avif)$/i
+  // export const COMPRESSIBLE_IMAGE_RE = /\.(jpe?g|png|webp|avif)$/i
+  // export const TEXT_RE =
+  //   /\.(txt|md|json|xml|csv|html|css|js|ts|jsx|tsx|yaml|yml|toml|ini|cfg|conf|log|sh|bash|py|rb|go|rs|java|c|cpp|h|hpp|sql|env|gitignore|dockerfile)$/i
+  // export const AUDIO_RE = /\.(mp3|wav|ogg|flac|aac|m4a|wma)$/i
+  // export const VIDEO_RE = /\.(mp4|webm|ogg|mov|avi|mkv|m4v)$/i
+  // export const DOCUMENT_RE = /\.(pdf|doc|docx|xls|xlsx|ppt|pptx|odt|ods|odp|rtf)$/i
+  // export const ARCHIVE_RE = /\.(zip|rar|7z|tar|gz|bz2|xz|tgz)$/i
+  // export const CODE_RE = /\.(js|ts|jsx|tsx|py|rb|go|rs|java|c|cpp|h|hpp|sh|bash)$/i
+
   const map = {
     jpg: 'image/jpeg',
     jpeg: 'image/jpeg',
@@ -115,6 +125,9 @@ function getMimeType(key) {
     bmp: 'image/bmp',
     avif: 'image/avif',
     mp4: 'video/mp4',
+    avi: 'video/x-msvideo',
+    mkv: 'video/x-matroska',
+    m4v: 'video/x-m4v',
     webm: 'video/webm',
     ogg: 'video/ogg',
     mov: 'video/quicktime',
@@ -123,16 +136,64 @@ function getMimeType(key) {
     flac: 'audio/flac',
     aac: 'audio/aac',
     m4a: 'audio/mp4',
+    wma: 'audio/x-ms-wma',
     json: 'application/json',
     xml: 'application/xml',
     pdf: 'application/pdf',
     html: 'text/html',
     css: 'text/css',
     js: 'text/javascript',
+    ts: 'text/typescript',
+    jsx: 'text/jsx',
+    tsx: 'text/tsx',
+    mjs: 'text/javascript',
+    mts: 'text/typescript',
+    yaml: 'application/x-yaml',
+    yml: 'application/x-yaml',
+    toml: 'application/toml',
+    ini: 'text/plain',
+    log: 'text/plain',
+    sh: 'application/x-sh',
+    bash: 'application/x-sh',
+    py: 'text/x-python',
+    rb: 'text/x-ruby',
+    go: 'text/x-go',
+    rs: 'text/x-rust',
+    java: 'text/x-java',
+    c: 'text/x-c',
+    cpp: 'text/x-c++',
+    h: 'text/x-c',
+    hpp: 'text/x-c++',
     txt: 'text/plain',
     md: 'text/markdown',
     csv: 'text/csv',
+    env: 'text/plain',
+    gitignore: 'text/plain',
+    dockerfile: 'text/plain',
+    doc: 'application/msword',
+    docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    xls: 'application/vnd.ms-excel',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    ppt: 'application/vnd.ms-powerpoint',
+    pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    odt: 'application/vnd.oasis.opendocument.text',
+    ods: 'application/vnd.oasis.opendocument.spreadsheet',
+    odp: 'application/vnd.oasis.opendocument.presentation',
+    rtf: 'application/rtf',
+    zip: 'application/zip',
+    rar: 'application/vnd.rar',
+    '7z': 'application/x-7z-compressed',
+    tar: 'application/x-tar',
+    gz: 'application/gzip',
+    bz2: 'application/x-bzip2',
+    xz: 'application/x-xz',
+    tgz: 'application/gzip',
+    lrc: 'application/lrc',
+    cert: 'application/x-x509-ca-cert',
+    pem: 'application/x-x509-ca-cert',
+    key: 'application/pgp-keys',
   }
+
   return map[ext] || 'application/octet-stream'
 }
 

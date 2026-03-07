@@ -10,13 +10,7 @@ import { ConfigManager } from './config-manager.js'
 import { FileExplorer } from './file-explorer.js'
 import { R2Client } from './r2-client.js'
 import { UIManager } from './ui-manager.js'
-import {
-  $,
-  applyFilenameTemplate,
-  computeFileHash,
-  getFileName,
-  getMimeType,
-} from './utils.js'
+import { $, applyFilenameTemplate, computeFileHash, getFileName, getMimeType } from './utils.js'
 
 /** @typedef {{ accountId?: string; accessKeyId?: string; secretAccessKey?: string; bucket?: string; filenameTpl?: string; filenameTplScope?: string; customDomain?: string; compressMode?: string; compressLevel?: string; tinifyKey?: string }} AppConfig */
 
@@ -249,7 +243,9 @@ class UploadManager {
       const plainText = e.clipboardData?.getData('text/plain') || ''
       const hasHtml = Boolean(htmlText.trim())
       const hasText = Boolean(plainText.trim() || hasHtml)
-      const hasImageItem = items.some(item => item.kind === 'file' && item.type.startsWith('image/'))
+      const hasImageItem = items.some(
+        item => item.kind === 'file' && item.type.startsWith('image/'),
+      )
       const hasHtmlImage = hasHtml && /<img[\s>]/i.test(htmlText)
 
       /** @type {File[]} */
@@ -363,31 +359,7 @@ class UploadManager {
         continue
       }
 
-      const id = `upload-${i}-${Date.now()}`
-      const displayName = file.name
-
-      const item = document.createElement('div')
-      item.className = 'upload-item'
-      item.id = id
-      item.innerHTML = `
-        <div class="upload-item-header">
-          <div class="upload-item-name" title="${displayName}">${displayName}</div>
-          <div class="upload-item-status" id="${id}-status"></div>
-        </div>
-        <div class="upload-progress">
-          <div class="upload-progress-bar" id="${id}-bar"></div>
-        </div>
-      `
-      body.appendChild(item)
-
-      const updateStatus = /** @param {string} msg */ msg => {
-        const statusEl = $(`#${id}-status`)
-        if (statusEl) statusEl.textContent = msg
-      }
-      file = await compressFile(file, cfg, updateStatus)
-
-      const shouldApplyTpl =
-        filenameTplScope === 'all' ? true : IMAGE_RE.test(file.name)
+      const shouldApplyTpl = filenameTplScope === 'all' ? true : IMAGE_RE.test(file.name)
       const processedName = shouldApplyTpl
         ? await applyFilenameTemplate(filenameTpl, file)
         : file.name
@@ -421,7 +393,31 @@ class UploadManager {
       } else {
         key = currentPrefix + processedName
       }
+
       const contentType = file.type || getMimeType(file.name)
+
+      const id = `upload-${i}-${Date.now()}`
+      const displayName = key.length > 40 ? '...' + key.slice(-37) : key
+
+      const item = document.createElement('div')
+      item.className = 'upload-item'
+      item.id = id
+      item.innerHTML = `
+        <div class="upload-item-header">
+          <div class="upload-item-name" title="${displayName}">${displayName}</div>
+          <div class="upload-item-status" id="${id}-status"></div>
+        </div>
+        <div class="upload-progress">
+          <div class="upload-progress-bar" id="${id}-bar"></div>
+        </div>
+      `
+      body.appendChild(item)
+
+      const updateStatus = /** @param {string} msg */ msg => {
+        const statusEl = $(`#${id}-status`)
+        if (statusEl) statusEl.textContent = msg
+      }
+      file = await compressFile(file, cfg, updateStatus)
 
       uploads.push({ id, key, file, contentType })
     }
