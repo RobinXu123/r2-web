@@ -186,7 +186,7 @@ const I18N = {
     tooltipFilenameTpl: '文件名模板，支持多种占位符自动生成文件名和目录结构',
     tooltipFilenameTplScope: '选择模板生效范围，默认仅图片',
     filenameTplHintDetailed:
-      '占位符: [name] [ext] [hash:N] [date:FORMAT] [timestamp] [uuid]\n\n例一：[name]_[hash:6].[ext]\n结果：photo_a1b2c3.jpg\n\n例二：[date:YYYY-MM-DD]_[name].[ext]\n结果：2024-03-15_photo.jpg\n\n例三：[date:YYYY/MM]/[name].[ext]\n结果：2024/03/photo.jpg（不在根目录时会询问你目标上传路径）',
+      '占位符: [name] [ext] [hash:N] [date:FORMAT] [timestamp] [uuid]\n\n例一：[name]_[hash:6].[ext]\n结果：photo_a1b2c3.jpg\n\n例二：[date:YYYY-MM-DD]_[name].[ext]\n结果：2024-03-15_photo.jpg\n\n例三：[date:YYYY/MM]/[name].[ext]\n结果：2024/03/photo.jpg',
     tooltipCompressMode: '上传前压缩图片，支持 JPEG/PNG/WebP/AVIF 格式，可节省存储空间和带宽',
     tooltipCompressLevel: '压缩质量，平衡模式保持高质量（90%），极致压缩更省空间（75%）',
     tooltipTinifyKey: 'Tinify API Key，存储在本地，需通过代理访问以避免跨域问题',
@@ -401,7 +401,7 @@ const I18N = {
     tooltipFilenameTpl: '檔案名模板，支持多種占位符自動生成檔案名和目錄結構',
     tooltipFilenameTplScope: '選擇模板生效範圍，默認僅圖片',
     filenameTplHintDetailed:
-      '占位符: [name] [ext] [hash:N] [date:FORMAT] [timestamp] [uuid]\n\n例一：[name]_[hash:6].[ext]\n結果：photo_a1b2c3.jpg\n\n例二：[date:YYYY-MM-DD]_[name].[ext]\n結果：2024-03-15_photo.jpg\n\n例三：[date:YYYY/MM]/[name].[ext]\n結果：2024/03/photo.jpg（不在根目錄時會詢問你目標上傳路徑）',
+      '占位符: [name] [ext] [hash:N] [date:FORMAT] [timestamp] [uuid]\n\n例一：[name]_[hash:6].[ext]\n結果：photo_a1b2c3.jpg\n\n例二：[date:YYYY-MM-DD]_[name].[ext]\n結果：2024-03-15_photo.jpg\n\n例三：[date:YYYY/MM]/[name].[ext]\n結果：2024/03/photo.jpg',
     tooltipCompressMode: '上傳前壓縮圖片，支持 JPEG/PNG/WebP/AVIF 格式，可節省儲存空間和頻寬',
     tooltipCompressLevel: '壓縮品質，平衡模式保持高品質（90%），極致壓縮更省空間（75%）',
     tooltipTinifyKey: 'Tinify API Key，儲存在本機，需通過代理訪問以避免跨域問題',
@@ -619,7 +619,7 @@ const I18N = {
     tooltipFilenameTpl: 'Filename template, supports placeholders for auto-generating names and folders',
     tooltipFilenameTplScope: 'Choose template scope; default is images only',
     filenameTplHintDetailed:
-      'Placeholders: [name] [ext] [hash:N] [date:FORMAT] [timestamp] [uuid]\n\nExample 1: [name]_[hash:6].[ext]\nResult: photo_a1b2c3.jpg\n\nExample 2: [date:YYYY-MM-DD]_[name].[ext]\nResult: 2024-03-15_photo.jpg\n\nExample 3: [date:YYYY/MM]/[name].[ext]\nResult: 2024/03/photo.jpg (when not at root, you will be asked to confirm the upload path)',
+      'Placeholders: [name] [ext] [hash:N] [date:FORMAT] [timestamp] [uuid]\n\nExample 1: [name]_[hash:6].[ext]\nResult: photo_a1b2c3.jpg\n\nExample 2: [date:YYYY-MM-DD]_[name].[ext]\nResult: 2024-03-15_photo.jpg\n\nExample 3: [date:YYYY/MM]/[name].[ext]\nResult: 2024/03/photo.jpg',
     tooltipCompressMode: 'Compress images before upload, supports JPEG/PNG/WebP/AVIF to save storage and bandwidth',
     tooltipCompressLevel: 'Compression quality, Balanced maintains high quality (90%), Extreme saves more space (75%)',
     tooltipTinifyKey: 'Tinify API Key, stored locally, proxied to avoid CORS issues',
@@ -840,7 +840,7 @@ const I18N = {
     tooltipFilenameTpl: 'ファイル名テンプレート、プレースホルダで名前とフォルダ構造を自動生成',
     tooltipFilenameTplScope: 'テンプレートの適用範囲を選択（既定は画像のみ）',
     filenameTplHintDetailed:
-      'プレースホルダ: [name] [ext] [hash:N] [date:FORMAT] [timestamp] [uuid]\n\n例1: [name]_[hash:6].[ext]\n結果: photo_a1b2c3.jpg\n\n例2: [date:YYYY-MM-DD]_[name].[ext]\n結果: 2024-03-15_photo.jpg\n\n例3: [date:YYYY/MM]/[name].[ext]\n結果: 2024/03/photo.jpg（ルート以外ではアップロード先の確認があります）',
+      'プレースホルダ: [name] [ext] [hash:N] [date:FORMAT] [timestamp] [uuid]\n\n例1: [name]_[hash:6].[ext]\n結果: photo_a1b2c3.jpg\n\n例2: [date:YYYY-MM-DD]_[name].[ext]\n結果: 2024-03-15_photo.jpg\n\n例3: [date:YYYY/MM]/[name].[ext]\n結果: 2024/03/photo.jpg',
     tooltipCompressMode: 'アップロード前に画像を圧縮、JPEG/PNG/WebP/AVIF 対応、ストレージと帯域幅を節約',
     tooltipCompressLevel: '圧縮品質、バランスは高品質を維持（90%）、極限はさらに容量を節約（75%）',
     tooltipTinifyKey: 'Tinify API Key、ローカル保存、CORS 問題を回避するためプロキシ経由',

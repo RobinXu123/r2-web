@@ -1,5 +1,3 @@
-@import './tokens.css';
-
 /* --- Utilities --- */
 @layer utilities {
   .sr-only {

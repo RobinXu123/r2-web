@@ -1,5 +1,3 @@
-@import './tokens.css';
-
 /* --- Layout --- */
 @layer layout {
   #app {

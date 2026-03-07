@@ -1,5 +1,3 @@
-@import './tokens.css';
-
 /* --- Animations --- */
 @layer animations {
   @keyframes fade-in {
