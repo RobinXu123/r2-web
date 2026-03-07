@@ -211,6 +211,8 @@ const I18N = {
     // About page
     aboutDescription: '轻盈优雅的 Web 原生 Cloudflare R2 文件管理器',
     aboutGithub: 'GitHub',
+    aboutChangelog: '更新日志',
+    aboutQQGroup: '反馈 QQ 群',
     aboutLicense: '开源协议',
     aboutUpdatedLabel: '更新日期',
   },
@@ -424,6 +426,8 @@ const I18N = {
     // About page
     aboutDescription: '轻盈优雅的 Web 原生 Cloudflare R2 文件管理器',
     aboutGithub: 'GitHub',
+    aboutChangelog: '更新日誌',
+    aboutQQGroup: '反饋 QQ 群',
     aboutLicense: '开源协议',
     aboutUpdatedLabel: '更新日期',
   },
@@ -640,6 +644,8 @@ const I18N = {
     // About page
     aboutDescription: 'A pure client-side Cloudflare R2 bucket file manager',
     aboutGithub: 'GitHub',
+    aboutChangelog: 'Changelog',
+    aboutQQGroup: 'QQ Group',
     aboutLicense: 'License',
     aboutUpdatedLabel: 'Updated',
   },
@@ -859,6 +865,8 @@ const I18N = {
     // About page
     aboutDescription: '純粋なクライアントサイド Cloudflare R2 バケットファイルマネージャー',
     aboutGithub: 'GitHub',
+    aboutChangelog: '変更履歴',
+    aboutQQGroup: 'QQ グループ',
     aboutLicense: 'ライセンス',
     aboutUpdatedLabel: '更新日',
   },

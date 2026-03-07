@@ -171,6 +171,8 @@ class App {
     $('#about-updated').textContent = `${t('aboutUpdatedLabel')}: ${dayjs(UPDATED_AT).format('YYYY-MM-DD HH:mm:ss')}`
     $('#about-description').textContent = t('aboutDescription')
     $('#about-github').textContent = t('aboutGithub')
+    $('#about-changelog').textContent = t('aboutChangelog')
+    $('#about-qq-group').textContent = t('aboutQQGroup')
     $('#about-license-label').textContent = t('aboutLicense')
 
     $('#help-theme').dataset.tooltip = t('tooltipTheme')

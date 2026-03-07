@@ -1701,10 +1701,8 @@
 
   .about-links {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: var(--sp-2);
-    width: 100%;
-    max-width: 120px;
   }
 
   .about-link {
