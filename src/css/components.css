@@ -1338,6 +1338,7 @@
 
   /* Preview Dialog */
   #preview-dialog > .dialog-panel {
+    outline: none;
     width: min(1000px, calc(100vw - 48px));
     height: min(720px, calc(100dvh - 48px));
 

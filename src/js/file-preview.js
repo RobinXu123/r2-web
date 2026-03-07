@@ -12,8 +12,7 @@ class FilePreview {
   #ui
   #currentKey = ''
   #currentText = ''
-  #currentCopyType = /** @type {'text'|'image'|null} */ (null)
-  #currentImageUrl = ''
+  #currentUrl = ''
 
   /** @param {R2Client} r2 @param {UIManager} ui */
   constructor(r2, ui) {
@@ -30,19 +29,22 @@ class FilePreview {
     const key = item.key
     this.#currentKey = key
     this.#currentText = ''
-    this.#currentCopyType = null
-    this.#currentImageUrl = ''
+    this.#currentUrl = ''
     const dialog = /** @type {HTMLDialogElement} */ ($('#preview-dialog'))
     const body = $('#preview-body')
     const footer = $('#preview-footer')
     const filename = $('#preview-filename')
     const copyBtn = /** @type {HTMLElement} */ ($('#preview-copy'))
+    const copyTextBtn = /** @type {HTMLElement} */ ($('#preview-copy-text'))
+    const copyImageBtn = /** @type {HTMLElement} */ ($('#preview-copy-image'))
 
     filename.textContent = extractFileName(key)
     body.innerHTML = '<div style="color:var(--text-tertiary)">Loading...</div>'
     footer.innerHTML = ''
     footer.classList.remove('bordered')
     copyBtn.hidden = true
+    copyTextBtn.hidden = true
+    copyImageBtn.hidden = true
     dialog.showModal()
 
     try {
@@ -61,28 +63,38 @@ class FilePreview {
 
       if (IMAGE_RE.test(key)) {
         const url = this.#r2.getPublicUrl(key) ?? (await this.#r2.getPresignedUrl(key))
-        this.#currentImageUrl = url
-        this.#currentCopyType = 'image'
+        this.#currentUrl = url
         body.innerHTML = `<img src="${url}" alt="${extractFileName(key)}">`
+        copyImageBtn.dataset.tooltip = t('copyImage')
+        copyImageBtn.hidden = false
         copyBtn.dataset.tooltip = t('copyLink')
         copyBtn.hidden = false
       } else if (VIDEO_RE.test(key)) {
         const url = this.#r2.getPublicUrl(key) ?? (await this.#r2.getPresignedUrl(key))
+        this.#currentUrl = url
         body.innerHTML = `<video src="${url}" controls></video>`
+        copyBtn.dataset.tooltip = t('copyLink')
+        copyBtn.hidden = false
       } else if (AUDIO_RE.test(key)) {
         const url = this.#r2.getPublicUrl(key) ?? (await this.#r2.getPresignedUrl(key))
+        this.#currentUrl = url
         body.innerHTML = `<audio src="${url}" controls></audio>`
+        copyBtn.dataset.tooltip = t('copyLink')
+        copyBtn.hidden = false
       } else if (TEXT_RE.test(key)) {
+        const url = this.#r2.getPublicUrl(key) ?? (await this.#r2.getPresignedUrl(key))
+        this.#currentUrl = url
         const res = await this.#r2.getObject(key)
         const text = await res.text()
         this.#currentText = text
-        this.#currentCopyType = 'text'
         body.innerHTML = ''
         const pre = document.createElement('pre')
         pre.textContent = text
         body.appendChild(pre)
-        copyBtn.dataset.tooltip = t('copyText')
+        copyBtn.dataset.tooltip = t('copyLink')
         copyBtn.hidden = false
+        copyTextBtn.dataset.tooltip = t('copyText')
+        copyTextBtn.hidden = false
       } else {
         body.innerHTML = `<p style="color:var(--text-tertiary)">${t('previewNotAvailable')}</p>`
       }
@@ -111,24 +123,52 @@ class FilePreview {
     }
   }
 
-  async copyCurrentText() {
-    if (this.#currentCopyType === 'text' && this.#currentText) {
-      try {
-        await navigator.clipboard.writeText(this.#currentText)
-        this.#ui.toast(t('copyTextSuccess'), 'success')
-      } catch {
-        await this.#ui.prompt(t('copyTextTitle'), t('copyTextLabel'), this.#currentText)
-      }
+  async copyCurrentLink() {
+    if (!this.#currentUrl) return
+    try {
+      await navigator.clipboard.writeText(this.#currentUrl)
+      this.#ui.toast(t('linkCopied'), 'success')
+    } catch {
+      await this.#ui.prompt(t('copyLink'), t('copyUrl'), this.#currentUrl)
+    }
+  }
+
+  async copyCurrentImage() {
+    if (!this.#currentUrl) return
+    if (!navigator.clipboard?.write) {
+      this.#ui.toast(t('copyImageNotSupported'), 'error')
       return
     }
+    try {
+      const res = await fetch(this.#currentUrl)
+      const blob = await res.blob()
+      const pngBlob = await new Promise((resolve, reject) => {
+        const img = new Image()
+        img.onload = () => {
+          const canvas = document.createElement('canvas')
+          canvas.width = img.naturalWidth
+          canvas.height = img.naturalHeight
+          canvas.getContext('2d').drawImage(img, 0, 0)
+          canvas.toBlob(b => (b ? resolve(b) : reject(new Error())), 'image/png')
+          URL.revokeObjectURL(img.src)
+        }
+        img.onerror = reject
+        img.src = URL.createObjectURL(blob)
+      })
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': pngBlob })])
+      this.#ui.toast(t('copyImageSuccess'), 'success')
+    } catch {
+      this.#ui.toast(t('copyImageFailed'), 'error')
+    }
+  }
 
-    if (this.#currentCopyType === 'image' && this.#currentImageUrl) {
-      try {
-        await navigator.clipboard.writeText(this.#currentImageUrl)
-        this.#ui.toast(t('linkCopied'), 'success')
-      } catch {
-        await this.#ui.prompt(t('copyTextTitle'), t('copyUrl'), this.#currentImageUrl)
-      }
+  async copyCurrentText() {
+    if (!this.#currentText) return
+    try {
+      await navigator.clipboard.writeText(this.#currentText)
+      this.#ui.toast(t('copyTextSuccess'), 'success')
+    } catch {
+      await this.#ui.prompt(t('copyTextTitle'), t('copyTextLabel'), this.#currentText)
     }
   }
 }

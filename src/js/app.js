@@ -231,7 +231,9 @@ class App {
     $('#settings-btn').dataset.tooltip = t('settings')
     $('#logout-btn').dataset.tooltip = t('logout')
     $('#refresh-btn').dataset.tooltip = t('refresh')
-    $('#preview-copy').dataset.tooltip = t('copyContent')
+    $('#preview-copy-text').dataset.tooltip = t('copyText')
+    $('#preview-copy-image').dataset.tooltip = t('copyImage')
+    $('#preview-copy').dataset.tooltip = t('copyLink')
     $('#preview-download').dataset.tooltip = t('download')
     $('#preview-close').dataset.tooltip = t('close')
     $('#file-qr-close').dataset.tooltip = t('close')
@@ -681,7 +683,9 @@ class App {
       if (e.target === previewDialog) previewDialog.close()
     })
     $('#preview-download').addEventListener('click', () => /** @type {FilePreview} */ (this.#preview).downloadCurrent())
-    $('#preview-copy').addEventListener('click', () => /** @type {FilePreview} */ (this.#preview).copyCurrentText())
+    $('#preview-copy-text').addEventListener('click', () => /** @type {FilePreview} */ (this.#preview).copyCurrentText())
+    $('#preview-copy-image').addEventListener('click', () => /** @type {FilePreview} */ (this.#preview).copyCurrentImage())
+    $('#preview-copy').addEventListener('click', () => /** @type {FilePreview} */ (this.#preview).copyCurrentLink())
 
     $('#upload-panel-close').addEventListener('click', () => {
       $('#upload-panel').hidden = true
